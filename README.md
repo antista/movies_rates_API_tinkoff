@@ -4,11 +4,11 @@
 Вебсервер, предоставляющий API для управления оценками пользователей на кинофильмы.
 
 ### Запуск сервера
-* `set FLASK_APP=server.wsgi`
+* `set FLASK_APP=api.wsgi`
 * `flask run`
 
 ### Запуск тестов
 * `python -m pytest`
 
 ### Запуск линтера
-* `flake8 server/`
+* `flake8 api/`
