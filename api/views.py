@@ -2,7 +2,7 @@ import json
 
 from flask import request
 
-from .models import User, Movie, RateStorage
+from .models import User, Movie, RatesStorage
 from .wsgi import app, db
 
 db.drop_all()
@@ -13,6 +13,8 @@ db.create_all()
 def handle_users_request():
     if request.method == 'POST':
         user = User.create_user(request.json)
+        if not user:
+            return json.dumps({}), 406
         return user, 201
     if request.method == 'GET':
         users = User.get_users()
@@ -44,6 +46,8 @@ def handle_user_request(user_id):
 def handle_movies_request():
     if request.method == 'POST':
         movie = Movie.create_movie(request.json)
+        if not movie:
+            return json.dumps({}), 406
         return movie, 201
     if request.method == 'GET':
         movies = Movie.get_movies()
@@ -65,6 +69,39 @@ def handle_movie_request(movie_id):
         return movie, 200
     if request.method == 'DELETE':
         responce = Movie.delete_movie(movie_id)
+        if not responce:
+            return json.dumps({}), 204
+        return json.dumps({}), 200
+    return 400
+
+
+@app.route('/api/users/<user_id>/rates', methods=['GET', 'POST'])
+def handle_rates_request(user_id):
+    if request.method == 'POST':
+        rate = RatesStorage.make_rate(user_id, request.json)
+        if not rate:
+            return json.dumps({}), 406
+        return rate, 201
+    if request.method == 'GET':
+        rates = RatesStorage.get_rates(user_id)
+        return rates, 200
+    return 400
+
+
+@app.route('/api/users/<user_id>/rates/<rate_id>', methods=['GET', 'PUT', 'DELETE'])
+def handle_rate_request(user_id, rate_id):
+    if request.method == 'PUT':
+        rate = RatesStorage.update_rate(rate_id, request.json)
+        if not rate:
+            return json.dumps({}), 204
+        return rate, 200
+    if request.method == 'GET':
+        rate = RatesStorage.get_rate(rate_id)
+        if not rate:
+            return json.dumps({}), 204
+        return rate, 200
+    if request.method == 'DELETE':
+        responce = RatesStorage.delete_rate(rate_id)
         if not responce:
             return json.dumps({}), 204
         return json.dumps({}), 200
