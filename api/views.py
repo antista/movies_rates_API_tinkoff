@@ -19,7 +19,7 @@ def handle_users_request():
     if request.method == 'GET':
         users = User.get_users()
         return users, 200
-    return 400
+    return 405
 
 
 @app.route('/api/users/<user_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -39,7 +39,7 @@ def handle_user_request(user_id):
         if not responce:
             return json.dumps({}), 204
         return json.dumps({}), 200
-    return 400
+    return 405
 
 
 @app.route('/api/movies/', methods=['GET', 'POST'])
@@ -52,7 +52,7 @@ def handle_movies_request():
     if request.method == 'GET':
         movies = Movie.get_movies()
         return movies, 200
-    return 400
+    return 405
 
 
 @app.route('/api/movies/<movie_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -72,7 +72,7 @@ def handle_movie_request(movie_id):
         if not responce:
             return json.dumps({}), 204
         return json.dumps({}), 200
-    return 400
+    return 405
 
 
 @app.route('/api/users/<user_id>/rates', methods=['GET', 'POST'])
@@ -85,7 +85,7 @@ def handle_rates_request(user_id):
     if request.method == 'GET':
         rates = RatesStorage.get_rates(user_id)
         return rates, 200
-    return 400
+    return 405
 
 
 @app.route('/api/users/<user_id>/rates/<rate_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -105,4 +105,4 @@ def handle_rate_request(user_id, rate_id):
         if not responce:
             return json.dumps({}), 204
         return json.dumps({}), 200
-    return 400
+    return 405
