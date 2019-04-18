@@ -3,10 +3,6 @@ from datetime import datetime
 from uuid import uuid4
 
 from api.wsgi import db
-from sqlalchemy.ext.declarative import declarative_base
-from flask_jsontools import JsonSerializableBase
-
-Base = declarative_base(cls=(JsonSerializableBase,))
 
 
 class User(db.Model):
@@ -56,7 +52,7 @@ class User(db.Model):
         return True
 
 
-class Movie(db.Model, Base):
+class Movie(db.Model):
     id = db.Column(db.String(80), primary_key=True, nullable=False)
     name = db.Column(db.String(80), nullable=False)
     year = db.Column(db.Integer)

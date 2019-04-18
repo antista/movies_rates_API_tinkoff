@@ -5,7 +5,6 @@ from flask import request
 from .models import User, Movie, RatesStorage
 from .wsgi import app, db
 
-db.drop_all()
 db.create_all()
 
 
