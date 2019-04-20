@@ -44,5 +44,5 @@
             * "film_name"
             * "rate" - число от 1 до 10
     * Изменить оценку:
-        * Метод PUT на /api/users/<user_id>/rates/<film_id> с параметрами в json:
+        * Метод PUT на /api/users/<user_id>/rates/<rate_id> с параметрами в json:
             * "rate" - число от 1 до 10
